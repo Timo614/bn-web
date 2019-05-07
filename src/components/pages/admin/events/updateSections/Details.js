@@ -324,12 +324,13 @@ class Details extends Component {
 		let label = "";
 
 		if (venues !== null) {
+			const privateVenues = venues.filter(v => v.is_private);
 			venues.forEach(venue => {
 				venueOptions.push({ value: venue.id, label: venue.name });
 			});
 
-			if (venues.length == 1) {
-				venueId = venueId || venues[0].id;
+			if (privateVenues.length == 1) {
+				venueId = venueId || privateVenues[0].id;
 			}
 			label = "Venue *";
 		} else {
