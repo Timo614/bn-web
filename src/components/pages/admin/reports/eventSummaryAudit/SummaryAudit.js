@@ -81,9 +81,7 @@ export const eventSummaryData = (queryParams, onSuccess, onError) => {
 				const { ticket_type_id } = sale;
 
 				const total_face_value_in_cents =
-					sale.total_gross_income_in_cents -
-					sale.total_client_fee_in_cents -
-					sale.total_company_fee_in_cents;
+					(sale.comp_count + sale.total_sold) * sale.price_in_cents;
 
 				if (!eventSales[ticket_type_id]) {
 					eventSales[ticket_type_id] = {
