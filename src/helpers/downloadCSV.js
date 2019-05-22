@@ -1,5 +1,5 @@
 export default (rows, name = "data") => {
-	let csvContent = "data:text/csv;charset=utf-8,";
+	let csvContent = "";
 	rows.forEach(rowArray => {
 		const row = rowArray.join(`","`);
 		csvContent += `"${row}"\r\n`;
