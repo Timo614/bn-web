@@ -38,10 +38,7 @@ export const eventSummaryData = (queryParams, onSuccess, onError) => {
 			sales.forEach(sale => {
 				const { ticket_type_id } = sale;
 
-				const total_face_value_in_cents =
-					sale.total_gross_income_in_cents -
-					sale.total_client_fee_in_cents -
-					sale.total_company_fee_in_cents;
+				const total_face_value_in_cents = sale.total_gross_income_in_cents;
 
 				if (!eventSales[ticket_type_id]) {
 					eventSales[ticket_type_id] = {
@@ -51,7 +48,6 @@ export const eventSummaryData = (queryParams, onSuccess, onError) => {
 							online_count: sale.online_count,
 							box_office_count: sale.box_office_count,
 							comp_count: sale.comp_count,
-							total_gross_income_in_cents: sale.total_gross_income_in_cents,
 							total_face_value_in_cents,
 							total_sold: sale.total_sold
 						}
@@ -62,8 +58,6 @@ export const eventSummaryData = (queryParams, onSuccess, onError) => {
 					totals.box_office_count += sale.box_office_count;
 					totals.total_sold += sale.total_sold;
 					totals.comp_count += sale.comp_count;
-					totals.total_gross_income_in_cents +=
-						sale.total_gross_income_in_cents;
 					totals.total_face_value_in_cents += total_face_value_in_cents;
 
 					eventSales[ticket_type_id].pricePoints.push({
