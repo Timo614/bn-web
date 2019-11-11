@@ -158,6 +158,7 @@ class FanHistoryActivityCard extends Component {
 		const {
 			ticket_quantity,
 			order_number,
+			action,
 			status,
 			total_in_cents,
 			ticket_ids,
@@ -667,11 +668,11 @@ class FanHistoryActivityCard extends Component {
 						<Card variant={"subCard"} className={classes.card}>
 							<div>
 								<FanActivityCardRow>
-									{status === "Cancelled" ? (
+									{action === "Cancelled" ? (
 										<img
 											src={servedImage("/icons/transfer-circle-error.svg")}
 										/>
-									) : status === "Completed" ? (
+									) : action === "Accepted" ? (
 										<img
 											src={servedImage("/icons/transfer-circle-success.svg")}
 										/>
@@ -693,7 +694,7 @@ class FanHistoryActivityCard extends Component {
 											{profile.first_name}&nbsp;{profile.last_name}&nbsp;
 										</span>
 										<span className={classes.boldSpan}>
-											transferred ({status})&nbsp;
+											transferred ({action})&nbsp;
 										</span>
 										{ticket_ids.length > 1 ? (
 											<span>{ticket_ids.length} tickets to </span>
@@ -731,7 +732,7 @@ class FanHistoryActivityCard extends Component {
 												Transfer Address:
 											</Typography>
 											<Typography className={classes.greySubtitleCap}>
-												{status === "Cancelled"
+												{action === "Cancelled"
 													? "Cancelled by"
 													: "Accepted by"}
 											</Typography>
@@ -775,7 +776,7 @@ class FanHistoryActivityCard extends Component {
 												{destination_addresses}
 											</Typography>
 											<Typography className={classes.darkGreySubtitle}>
-												{status === "Cancelled" ? (
+												{action === "Cancelled" ? (
 													cancelled_by ? (
 														<span className={classes.pinkSpan}>
 															{cancelled_by.full_name} <br/>
@@ -830,6 +831,7 @@ class FanHistoryActivityCard extends Component {
 		const {
 			ticket_quantity,
 			order_number,
+			action,
 			status,
 			total_in_cents,
 			ticket_ids,
@@ -1340,12 +1342,12 @@ class FanHistoryActivityCard extends Component {
 						<div className={classes.mobileActivityHeader}>
 							<div>
 								<div className={classes.mobileHeaderTopRow}>
-									{status === "Cancelled" ? (
+									{action === "Cancelled" ? (
 										<img
 											className={classes.mobiIcon}
 											src={servedImage("/icons/transfer-circle-error.svg")}
 										/>
-									) : status === "Completed" ? (
+									) : action === "Accepted" ? (
 										<img
 											className={classes.mobiIcon}
 											src={servedImage("/icons/transfer-circle-success.svg")}
@@ -1367,7 +1369,7 @@ class FanHistoryActivityCard extends Component {
 											&nbsp;
 										</span>
 										<span className={classes.boldSpan}>
-											transferred ({status})&nbsp;
+											transferred ({action})&nbsp;
 										</span>
 										{ticket_ids.length > 1 ? (
 											<span>{ticket_ids.length} tickets to </span>
@@ -1443,12 +1445,12 @@ class FanHistoryActivityCard extends Component {
 											</div>
 											<div className={classes.halfFlexItem}>
 												<Typography className={classes.greySubtitleCap}>
-													{status === "Cancelled"
+													{action === "Cancelled"
 														? "Cancelled by"
 														: "Accepted by"}
 												</Typography>
 												<Typography className={classes.darkGreySubtitle}>
-													{status === "Cancelled" ? (
+													{action === "Cancelled" ? (
 														cancelled_by ? (
 															<span className={classes.pinkSpan}>
 																{cancelled_by.full_name} <br/>
