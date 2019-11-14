@@ -1507,14 +1507,13 @@ class FanHistoryActivityCard extends Component {
 	}
 
 	render() {
-		const { type, eligible_for_cancelling } = this.props.item;
+		const { type, status, eligible_for_cancelling } = this.props.item;
 		const { cancelTransferKey } = this.state;
 
 		const canCancelTransfer =
-			eligible_for_cancelling &&
-			user.hasScope("transfer:cancel-accepted") &&
-			status === "Pending";
-
+	            eligible_for_cancelling &&
+	            ((user.hasScope("transfer:cancel-accepted") && status === "Completed")
+								|| (user.hasScope("transfer:cancel") && status === "Pending"));
 		return (
 			<div>
 				<CancelTransferDialog
