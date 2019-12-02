@@ -254,7 +254,7 @@ class RefundDialog extends Component {
 
 		this.setState({ isRefunding: true });
 		const reason = refundReasons.find(function(refund) {
-  		return refund.value === reasonVal;
+			return refund.value === reasonVal;
 		}).label;
 		Bigneon()
 			.orders.refund({
