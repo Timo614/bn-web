@@ -10,6 +10,7 @@ import PropTypes from "prop-types";
 import classnames from "classnames";
 import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 
+import Bigneon from "../../../../../../../helpers/bigneon";
 import Card from "../../../../../../elements/Card";
 import {
 	fontFamilyDemiBold,
@@ -153,17 +154,30 @@ class OrderItems extends Component {
 	}
 
 	resendConfirmationEmail() {
-		//TODO
-		setTimeout(() => {
-			notification.show({
-				message: "Not yet implemented",
-				variant: "warning"
+		const { order } = this.props;
+		const orderId = order.id;
+		Bigneon()
+			.orders.resendOrderConfirmation({
+				id: orderId
+			})
+			.then(response => {
+				notification.show({
+					message: "Resent order confirmation",
+					variant: "success"
+				});
+			})
+			.catch(error => {
+				notification.showFromErrorResponse({
+					error,
+					defaultMessage: "Failed to resend order confirmation."
+				});
+			})
+			.finally(() => {
+				this.setState({
+					mobileOptionsControlOpen: false
+				});
+				this.props.refreshOrder();
 			});
-
-			this.setState({ mobileOptionsControlOpen: false });
-
-			this.props.refreshOrder();
-		}, 0);
 	}
 
 	onRefundDialogClose() {
@@ -394,8 +408,7 @@ class OrderItems extends Component {
 
 		const orderControlOptions = [];
 
-		//TODO when api endpoint is ready use correct permission
-		if (user.isAdmin) {
+		if (user.hasScope("order:resend-confirmation"))  {
 			orderControlOptions.push({
 				label: "Resend Confirmation Email",
 				onClick: this.resendConfirmationEmail.bind(this)
