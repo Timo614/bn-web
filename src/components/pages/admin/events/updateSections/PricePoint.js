@@ -43,7 +43,8 @@ const PricePoint = props => {
 		validateFields,
 		updatePricePointDetails,
 		onDelete,
-		isCancelled
+		isCancelled,
+		associatedWithActiveOrders
 	} = props;
 
 	return (
@@ -193,7 +194,7 @@ const PricePoint = props => {
 				/>
 			</Grid>
 
-			{!isCancelled ? (
+			{(!isCancelled && !associatedWithActiveOrders) ? (
 				<Grid
 					className={classes.inputContainer}
 					item
@@ -232,7 +233,8 @@ PricePoint.propTypes = {
 	endDate: PropTypes.object.isRequired,
 	value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
 	onDelete: PropTypes.func.isRequired,
-	isCancelled: PropTypes.bool
+	isCancelled: PropTypes.bool,
+	associatedWithActiveOrders: PropTypes.bool
 };
 
 export default withStyles(styles)(PricePoint);

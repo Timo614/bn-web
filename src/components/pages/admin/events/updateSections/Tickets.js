@@ -225,6 +225,7 @@ const formatForInput = (ticket_types, event) => {
 				startTime: startDate,
 				endDate: endDate.clone(),
 				endTime: endDate,
+				associatedWithActiveOrders: pricePoint.associated_with_active_orders,
 				value: price_in_cents / 100
 			});
 
