@@ -309,51 +309,16 @@ class Details extends Component {
 	}
 
 	componentDidMount() {
-		this.loadOrgVenueLinks();
-	}
-
-	loadOrgVenueLinks() {
-		const organization_id = user.currentOrganizationId;
-		if (organization_id) {
-			Bigneon()
-				.venues.orgVenues.index({ id: organization_id })
-				.then(response => {
-					const { data } = response.data;
-					this.setState({
-						orgVenues: data
-					});
-					this.loadVenues();
-				})
-				.catch(error => {
-					console.error(error);
-					notifications.showFromErrorResponse({
-						defaultMessage: "Loading org/venue links failed.",
-						error
-					});
-				});
-		}
+		this.loadVenues();
 	}
 
 	loadVenues() {
-		const { orgVenues } = this.state;
 		this.setState({ venues: null }, () => {
 			Bigneon()
 				.venues.index()
 				.then(response => {
-					const { data } = response.data;
-					const organizationVenues = [];
-
-					if (orgVenues.length > 0) {
-						for (let i = 0; i < orgVenues.length; i++) {
-							data.forEach(venue => {
-								if (venue.id === orgVenues[i].venue_id) {
-									organizationVenues.push(venue);
-								}
-							});
-						}
-					}
-
-					this.setState({ venues: organizationVenues });
+					const { data, paging } = response.data; //@TODO Implement pagination
+					this.setState({ venues: data });
 
 					//If it's a new event and there is only one private venue available then auto select that one
 					const privateVenues = data.filter(v => v.is_private);
